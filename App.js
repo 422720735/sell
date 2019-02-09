@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 type Props = {};
+
+
+import WelcomePage from './src/page/WelcomePage/WelcomePage'
+import HomePage from './src/page/HomePage/HomePage'
+
 export default class App extends Component<Props> {
   render() {
     return (

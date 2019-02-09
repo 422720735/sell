@@ -1,0 +1,5 @@
+导航框架 react-navigation 它相当于我们vue中的vue-router
+npm install react-navigation
+
+
+二级页面像跳转一级路由平级到页面
