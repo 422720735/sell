@@ -12,18 +12,6 @@ export default class DetailPage extends Component<Props> {
         return (
             <View>
 
-
-
-            <Modal
-                style={styles.dialog}
-                transparent={true}
-                visible={true}
-                onRequestClose={() => onClose()}
-            >
-                <View style={styles.dialog_detail}>
-                    <Text>1</Text>
-                </View>
-            </Modal>
             </View>
         );
     }

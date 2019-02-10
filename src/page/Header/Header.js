@@ -47,9 +47,10 @@ export default class header extends Component<Props> {
         this.setState({visible: visible});
     }
 
-    renderItms(item, index) {
-        console.log(item)
-
+    dismiss() {
+        this.setState({
+            visible: false
+        })
     }
 
     render() {
@@ -130,7 +131,9 @@ export default class header extends Component<Props> {
                 <Modal
                     style={styles.dialog}
                     transparent={true}
-                    visible={this.state.visible}>
+                    visible={this.state.visible}
+                    // onRequestClose（被销毁时会调用此函数）
+                    onRequestClose={() => this.dismiss()}>
                     <ScrollView style={{backgroundColor: 'rgba(7,17,27,0.8)',}}>
                         <View style={styles.dialog_detail}>
                             {/*内容部分*/}

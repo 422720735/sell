@@ -51,11 +51,13 @@ export default class DynamicTabNavigator extends Component<Props> {
         const TabNavigator = createMaterialTopTabNavigator(TABS,
             {
                 tabBarOptions: {
+                    activeTintColor: 'red',
+                    inactiveTintColor: '#4d555d',
                     tabStyle: styles.tabStyle, // 样式
                     upperCaseLabel: false, // 是否使标签大写，默认为true
                     scrollEnabled: false, // 是否支持 选项卡滚动，默认false
                     style: {
-                        backgroundColor: BaseCss.Grey,
+                        backgroundColor: '#f8f8f8',
                         // 设置了(scrollEnabled)滚动初始启动，就会有这样的问题
                         // 解决办法
                         justifyContent: "center",
