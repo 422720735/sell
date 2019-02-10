@@ -53,7 +53,7 @@ export default class DynamicTabNavigator extends Component<Props> {
                 tabBarOptions: {
                     tabStyle: styles.tabStyle, // 样式
                     upperCaseLabel: false, // 是否使标签大写，默认为true
-                    scrollEnabled: true, // 是否支持 选项卡滚动，默认false
+                    scrollEnabled: false, // 是否支持 选项卡滚动，默认false
                     style: {
                         backgroundColor: BaseCss.Grey,
                         // 设置了(scrollEnabled)滚动初始启动，就会有这样的问题

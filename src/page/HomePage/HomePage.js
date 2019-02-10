@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {
     TabNavigator,
+    TouchableOpacity,
+    Alert,
     createStackNavigator, // 核心函数是createStackNavigator ①要先引用该函数,②它需要一个路由配置对象.
     createMaterialTopTabNavigator, // 顶部导航的
     createBottomTabNavigator, // 底部导航的
@@ -21,8 +23,9 @@ import SellerPage from '../TabPage/SellerPage/SellerPage' // 商家
 import NavigationUtil from "../../js/navigator/NavigationUtil";
 import DynamicTabNavigator from "../../js/navigator/DynamicTabNavigator";
 
-
+import data from '../../js/data/data'
 export default class HomePage extends Component<Props> {
+
     render() {
         NavigationUtil.navigation = this.props.navigation;
         const TabNavigator = createMaterialTopTabNavigator({
@@ -48,7 +51,9 @@ export default class HomePage extends Component<Props> {
         return (
             <SafeAreaViewPlus style={styles.container}>
                 {/*头部*/}
-                <Header/>
+                <Header
+                    seller={data.seller}
+                />
                 {/*tab切换*/}
                 <DynamicTabNavigator/>
                 {/*内容*/}
@@ -59,6 +64,8 @@ export default class HomePage extends Component<Props> {
         );
     }
 }
+
+
 
 // tab切换
 class HomeTab extends Component {
