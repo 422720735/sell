@@ -10,9 +10,11 @@ export default class ViewUtil {
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <Image
                         style={type === 'minni' ? styles.minniImg : styles.smallImg}
-                        source={activityImg[index]}
+                        source={type === 'minni' ? activityImg1[index] : activityImg2[index]}
                     />
-                    <Text style={{fontSize: 14, color: '#fff'}}>{supports[index].description}</Text>
+                    <Text style={{fontSize: 14, color: '#fff'}}>
+                        {supports.length ? supports[index].description : supports.description
+                            }</Text>
                 </View>
             </View>
         )
@@ -24,7 +26,7 @@ export default class ViewUtil {
 * */
 let classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
 let b = "../../common/images/" + classMap[2] + "_1.png";
-const activityImg = [
+const activityImg1 = [
     // require(b), 这种写法会报错
     require('../../common/images/decrease_1.png'),
     require('../../common/images/discount_1.png'),
@@ -32,6 +34,16 @@ const activityImg = [
     require('../../common/images/invoice_1.png'),
     require('../../common/images/guarantee_1.png'),
 ];
+
+const activityImg2 = [
+    // require(b), 这种写法会报错
+    require('../../common/images/decrease_2.png'),
+    require('../../common/images/discount_2.png'),
+    require('../../common/images/special_2.png'),
+    require('../../common/images/invoice_2.png'),
+    require('../../common/images/guarantee_2.png'),
+];
+
 
 const styles = StyleSheet.create({
     minniImg: {
