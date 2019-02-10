@@ -21,6 +21,7 @@ import SellerPage from '../TabPage/SellerPage/SellerPage' // 商家
 import NavigationUtil from "../../js/navigator/NavigationUtil";
 import DynamicTabNavigator from "../../js/navigator/DynamicTabNavigator";
 
+
 export default class HomePage extends Component<Props> {
     render() {
         NavigationUtil.navigation = this.props.navigation;
