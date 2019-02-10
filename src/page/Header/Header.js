@@ -129,6 +129,7 @@ export default class header extends Component<Props> {
                 </View>
 
                 <Modal
+                    animationType={'fade'}
                     style={styles.dialog}
                     transparent={true}
                     visible={this.state.visible}
