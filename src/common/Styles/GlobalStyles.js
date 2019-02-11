@@ -19,5 +19,9 @@ export default {
     nav_bar_height_android: 50,
     backgroundColor: BACKGROUND_COLOR,
     window_height: height,
-
+    borderBottomSolid_one: {
+        borderStyle: 'solid',
+        borderBottomWidth: 0.25,
+        borderColor: 'rgba(7,17,27,0.1)'
+    }
 }

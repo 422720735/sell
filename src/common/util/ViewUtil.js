@@ -14,10 +14,17 @@ export default class ViewUtil {
                     />
                     <Text style={{fontSize: 14, color: '#fff'}}>
                         {supports.length ? supports[index].description : supports.description
-                            }</Text>
+                        }</Text>
                 </View>
             </View>
         )
+    }
+
+    static getImage(index) {
+        return <Image
+            style={{width: 12,height: 12,marginRight:3}}
+            source={activityImg1[index]}
+        />
     }
 }
 
@@ -44,6 +51,14 @@ const activityImg2 = [
     require('../../common/images/guarantee_2.png'),
 ];
 
+const activityImg3 = [
+    // require(b), 这种写法会报错
+    require('../../common/images/decrease_3.png'),
+    require('../../common/images/discount_3.png'),
+    require('../../common/images/special_3.png'),
+    require('../../common/images/invoice_3.png'),
+    require('../../common/images/guarantee_3.png'),
+];
 
 const styles = StyleSheet.create({
     minniImg: {

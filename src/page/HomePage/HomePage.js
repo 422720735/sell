@@ -56,10 +56,6 @@ export default class HomePage extends Component<Props> {
                 />
                 {/*tab切换*/}
                 <DynamicTabNavigator/>
-                {/*内容*/}
-                <View>
-                    <Text>内容</Text>
-                </View>
             </SafeAreaViewPlus>
         );
     }
