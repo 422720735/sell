@@ -13,19 +13,10 @@ export default class Contet extends Component {
 
     render() {
         const {foods} = this.props;
-        console.log(foods)
-
-
-        //这里要对数组转换一下，
-        // 因为SectionList要求item必须是data的数组，
-        // 如果把data写成其他单词则会报错
-        //不管你是否使用一个或多个不同的section，都要重新定义以下section如：
-        // tempData.key = item.typeName;
-        // temData.key =`${item.typeName} ${item.typeNameEn}`
-        //   tempData.typeName = item.typeName; tempData.key = item.typeNameEn
         let tempArr = foods.map((item, index) => {
             let tempData = {};
             tempData.key = item.name;
+            tempData.index = index;
             tempData.data = item.foods;
             return tempData
         });
