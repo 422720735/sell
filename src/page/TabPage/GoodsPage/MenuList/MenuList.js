@@ -3,9 +3,14 @@ import React, {Component} from 'react'
 import {View, Text, StyleSheet, FlatList, Dimensions, TouchableOpacity, DeviceEventEmitter} from 'react-native';
 import ViewUtil from "../../../../common/util/ViewUtil";
 import Contet from "./Contet/Contet";
+import actions from "../../../../action";
+import {connect} from "react-redux";
+
+
+
 
 /*商品列表*/
-export default class MenuList extends Component {
+class MenuList extends Component {
     constructor(props) {
         super(props);
         const {foods} = this.props;
@@ -85,3 +90,7 @@ const styles = StyleSheet.create({
     foods_title: {},
     foods_name: {}
 });
+
+const mapStateToProps = state => ({});
+
+export default connect(mapStateToProps)(MenuList)

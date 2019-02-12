@@ -5,8 +5,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 /*购物车*/
 
 const isok = false;
-export default class ShoppingCart extends Component {
+
+
+import {connect} from 'react-redux';
+class ShoppingCart extends Component {
     render() {
+        console.log(this.props.count)
         return <View style={{width: width, height: 56, paddingTop: 9}}>
             <View style={styles.content}>
                 {/*左边*/}
@@ -26,7 +30,7 @@ export default class ShoppingCart extends Component {
                                     color: '#fff',
                                     textAlign: 'center',
                                     lineHeight: 16,
-                                }}>1</Text>
+                                }}>{console.log(this.props.count)}</Text>
                             </View>
                         </View>
                     </View>
@@ -56,6 +60,14 @@ export default class ShoppingCart extends Component {
         </View>;
     }
 }
+
+const mapStateToProps = state => ({
+    count: state.shopping.count
+});
+export default connect(mapStateToProps)(ShoppingCart)
+
+
+
 const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({

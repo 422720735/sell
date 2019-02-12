@@ -1,0 +1,5 @@
+export default {
+    ADDSHOPPING: "ADDSHOPPING", // 加
+    REDUCESHOPPING: "REDUCESHOPPING", // 减
+    COUNTGOODS: "COUNTGOODS", //商品数量
+}

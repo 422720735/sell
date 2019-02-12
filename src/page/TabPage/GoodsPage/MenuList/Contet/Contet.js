@@ -5,7 +5,11 @@ import Price from "../../../../../common/Base/Price";
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default class Contet extends Component {
+import actions from '../../../../../action/index';
+
+import {connect} from 'react-redux'
+
+class Contet extends Component {
 
     constructor(props) {
         super(props);
@@ -49,6 +53,13 @@ export default class Contet extends Component {
             this.props.fn(title)
         }
     }
+
+    addCount() {
+        const {onShoppingCountChange} = this.props;
+        let num = this.props.count;
+        onShoppingCountChange(num++)
+    }
+
     renderItem = (info) => {
         const {item} = info;
         return (<View style={[styles.item, GlobalStyles.borderBottomSolid_one]}>
@@ -69,7 +80,7 @@ export default class Contet extends Component {
                             <Text style={styles.price_txt}>月售{item.sellCount}分</Text>
                             <Text style={styles.price_txt}>好评率{item.rating}%</Text>
                         </View>
-                        <View style={{flexDirection:'row',justifyContent: 'space-between'}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                             <Price price={item.price} oldPrice={item.oldPrice}/>
                             <View style={styles.cart_control}>
                                 <AntDesign
@@ -84,6 +95,7 @@ export default class Contet extends Component {
                                     size={24}
                                     color="#00a0dc"
                                     style={styles.button}
+                                    onPress={() => this.addCount()}
                                 />
                             </View>
                         </View>
@@ -98,6 +110,16 @@ export default class Contet extends Component {
         )
     };
 }
+
+const mapStateToProps = state => ({
+    count: state.shopping.count
+});
+
+const mapDispathchToProps = dispatch => ({
+    onShoppingCountChange: count => dispatch(actions.onShoppingCountChange(count))
+});
+
+export default connect(mapStateToProps, mapDispathchToProps)(Contet)
 
 const styles = StyleSheet.create({
     container: {

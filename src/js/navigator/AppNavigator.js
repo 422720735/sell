@@ -8,7 +8,9 @@ import {
 import WelcomePage from '../../page/WelcomePage/WelcomePage'
 import HomePage from '../../page/HomePage/HomePage'
 import DetailPage from '../../page/DetailPage/DetailPage'
-
+import {connect} from 'react-redux'
+import {createReactNavigationReduxMiddleware,reduxifyNavigator} from 'react-navigation-redux-helpers'
+export const rootCom = 'Init' // 根路由
 /**
  * 欢迎页面的导航器，我们可以这 打开app显示图片，广告的功能都可以在这里做。
  * */
@@ -49,7 +51,9 @@ const MainNavigator = createStackNavigator({
  * 连接上面我们配置的导航器
  * {},{}
  * */
-export default createSwitchNavigator({
+
+//连接上面两个导航器
+export const RootNavigator =  createSwitchNavigator({
     Init: InitNavigator,
     Main: MainNavigator
 }, {
@@ -57,3 +61,33 @@ export default createSwitchNavigator({
         header: null, // 禁用Navigation NavBar的头部 我们全屏显示
     }
 });
+/*
+* 1.初始化react-navigation与redux的中间件，
+* 该方法的一个很大的作用就是为reduxifyNavigator的key设置actionSubscribers
+* @type {middleware}
+* */
+export const middleware = createReactNavigationReduxMiddleware(
+    'root',
+    state => state.nav
+);
+/*
+* 2.将导航器组件传递给 reduxifyNavigator 函数
+* 并返回一个将 navigation state 和 dispath 函数作为 props的新组件
+* 注意：要在 createReactNavigationReduxMiddleware之后执行。
+* */
+const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
+
+
+/*
+* State到Props的映射关系
+* @param state
+* */
+
+const mapStateToProps = state => ({
+    state: state.nav,
+});
+
+/*
+* 3.连接 React 组件与 Redux store
+* */
+export default connect(mapStateToProps)(AppWithNavigationState);
