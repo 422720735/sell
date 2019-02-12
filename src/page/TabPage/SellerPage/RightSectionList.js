@@ -41,6 +41,7 @@ export default class RightSectionList extends Component {
     }
 
     render() {
+
         return (
             <SectionList
                 style={{width:width-80}}

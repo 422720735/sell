@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Text, SectionList, Image} from 'react-native';
+import {AppRegistry, StyleSheet, View, Text, SectionList, Image, DeviceEventEmitter} from 'react-native';
 import GlobalStyles from "../../../../../common/Styles/GlobalStyles";
 import Price from "../../../../../common/Base/Price";
 
@@ -27,6 +27,7 @@ export default class Contet extends Component {
                     renderSectionHeader={this.renderSectionHeader}
                     renderItem={this.renderItem}
                     sections={tempArr}
+                    onViewableItemsChanged={(info) => this.itemChange(info)}  //滑动时调用
                 />
             </View>
         );
@@ -40,10 +41,16 @@ export default class Contet extends Component {
             </View>
         )
     };
+    itemChange = (info) => {
 
+        let title = info.changed[0].item.index;
+        var reg = new RegExp("^[0-9]*$");
+        if (reg.test(title) && title > 0) {
+            this.props.fn(title)
+        }
+    }
     renderItem = (info) => {
         const {item} = info;
-        console.log(item)
         return (<View style={[styles.item, GlobalStyles.borderBottomSolid_one]}>
                 {/*上*/}
                 <View style={{flexDirection: 'row'}}>

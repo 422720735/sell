@@ -16,6 +16,8 @@ import Header from '../../page/Header/Header'
 import GoodsPage from '../../page/TabPage/GoodsPage/GoodsPage' // 商品
 import RatingsPage from '../../page/TabPage/RatingsPage/RatingsPage' // 评论
 import SellerPage from '../../page/TabPage/SellerPage/SellerPage' // 商家
+import TestPage from '../../page/TabPage/TestPage/TestPage' // 商家
+
 import NavigationUtil from "../../js/navigator/NavigationUtil";
 import {BaseCss} from "../../common/Styles/Base"; // 工具
 
@@ -38,7 +40,15 @@ const TABS = {
         navigationOptions: {
             title: '商家',
         }
-    }
+    },
+    TestPage: {
+        screen: TestPage,
+        navigationOptions: {
+            title: '商家2',
+        }
+    },
+
+
 };
 export default class DynamicTabNavigator extends Component<Props> {
     constructor(props) {

@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 
-import {View, Text, StyleSheet, FlatList, Dimensions, TouchableOpacity, SectionList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Dimensions, TouchableOpacity, DeviceEventEmitter} from 'react-native';
 import ViewUtil from "../../../../common/util/ViewUtil";
-import Arrayutil from "../../../../common/util/Arrayutil";
 import Contet from "./Contet/Contet";
 
 /*商品列表*/
@@ -17,15 +16,8 @@ export default class MenuList extends Component {
     }
 
 
-    menuTitle(data) {
-        return <View style={styles.menu_item}>
-
-            <Text style={styles.title_style}>{data.item.name}</Text>
-        </View>;
-    }
-
     renderLeftItem(item) {
-        return item ? <TouchableOpacity onPress={() => this.cellAction(item)}>
+        return item ? <TouchableOpacity>
             <View style={[styles.menu_item,
                 {backgroundColor: item.index == this.state.cell ? '#f3f5f7' : null}
             ]}>
@@ -42,8 +34,13 @@ export default class MenuList extends Component {
         return item.name
     }
 
-    render() {
+    fn(val) {
 
+
+
+    }
+
+    render() {
         return <View style={styles.container}>
             <View style={styles.left_wap}>
                 <FlatList
@@ -52,7 +49,7 @@ export default class MenuList extends Component {
                     keyExtractor={this.keyExtractor}
                 />
             </View>
-            <Contet foods={this.state.foods} style={styles.right_wap}/>
+            <Contet fn={this.fn.bind(this)} foods={this.state.foods} style={styles.right_wap}/>
         </View>
 
     }
