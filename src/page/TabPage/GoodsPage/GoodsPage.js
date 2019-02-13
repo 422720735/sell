@@ -8,6 +8,10 @@ import ShoppingCart from './ShoppingCart/ShoppingCart' // 购物车
 import Data from '../../../js/data/data';
 
 export default class GoodsPage extends Component<Props> {
+    constructor(props){
+        super(props);
+    }
+
     render() {
         return (
             <View style={styles.container}>

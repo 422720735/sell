@@ -42,7 +42,7 @@ const MainNavigator = createStackNavigator({
     DetailPage: {
         screen: DetailPage,
         navigationOptions: { // 配置页面的参数
-            // header: null, // 禁用Navigation NavBar的头部 我们全屏显示
+            header: null, // 禁用Navigation NavBar的头部 我们全屏显示
         }
     },
 });

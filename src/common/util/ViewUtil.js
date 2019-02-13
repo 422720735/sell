@@ -1,8 +1,26 @@
 import React from 'react';
 
-import {Image, Text, View, StyleSheet} from 'react-native'
+import {Image, Text, View, StyleSheet,TouchableOpacity} from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default class ViewUtil {
+
+    /*
+    * 获取左边返回按钮
+    * */
+    static getLeftBackButton(callBack) {
+        return <TouchableOpacity
+            style={{padding: 8, paddingLeft: 12}}
+            onPress={callBack}
+        >
+            <Ionicons
+                name={'ios-arrow-back'}
+                size={26}
+                style={{color: 'white'}}
+            />
+        </TouchableOpacity>
+    }
+
     /*header几个活动的图片显示*/
     static getActivityMap(supports, index = 0, type) {
         return (

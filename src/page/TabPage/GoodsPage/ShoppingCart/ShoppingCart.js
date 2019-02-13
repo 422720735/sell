@@ -9,8 +9,11 @@ const isok = false;
 
 import {connect} from 'react-redux';
 class ShoppingCart extends Component {
+    constructor(props){
+        super(props);
+        let totalPrice = 0;
+    }
     render() {
-        console.log(this.props.count)
         return <View style={{width: width, height: 56, paddingTop: 9}}>
             <View style={styles.content}>
                 {/*左边*/}
@@ -62,7 +65,7 @@ class ShoppingCart extends Component {
 }
 
 const mapStateToProps = state => ({
-    count: state.shopping.count
+    count: state.shopping
 });
 export default connect(mapStateToProps)(ShoppingCart)
 

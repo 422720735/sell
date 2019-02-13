@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import shopping from './shopping'; // 购物的
+import goDetail from './goDetail'; // 购物的
 
 import {rootCom, RootNavigator} from '../js/navigator/AppNavigator';
 
@@ -22,6 +23,7 @@ const navReducer = (state = navState, action) => {
 const index = combineReducers({
     nav: navReducer,
     shopping: shopping,
+    goDetail: goDetail
 
 });
 

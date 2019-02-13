@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Text, SectionList, Image, DeviceEventEmitter} from 'react-native';
+import {
+    AppRegistry,
+    StyleSheet,
+    View,
+    Text,
+    SectionList,
+    Image,
+    DeviceEventEmitter,
+    TouchableOpacity
+} from 'react-native';
 import GlobalStyles from "../../../../../common/Styles/GlobalStyles";
 import Price from "../../../../../common/Base/Price";
 
@@ -8,6 +17,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import actions from '../../../../../action/index';
 
 import {connect} from 'react-redux'
+import NavigationUtil from "../../../../../js/navigator/NavigationUtil";
 
 class Contet extends Component {
 
@@ -52,61 +62,64 @@ class Contet extends Component {
         if (reg.test(title) && title > 0) {
             this.props.fn(title)
         }
-    }
+    };
 
-    addCount() {
-        const {onShoppingCountChange} = this.props;
-        let num = this.props.count;
-        onShoppingCountChange(num++)
+    /*加购物*/
+    addToCart(item) {
+        console.log(item)
     }
-
+    /*减购物*/
+    decreaseOutCart(){}
     renderItem = (info) => {
-        const {item} = info;
-        return (<View style={[styles.item, GlobalStyles.borderBottomSolid_one]}>
-                {/*上*/}
-                <View style={{flexDirection: 'row'}}>
-                    <Image
-                        style={styles.img}
-                        source={{uri: item.image}}
-                    />
-                    <View style={{flex: 1}}>
-                        <View>
-                            <Text style={styles.name}>{item.name}</Text>
-                        </View>
-                        {item.description ? <View style={{marginBottom: 8}}>
-                            <Text style={[styles.price_txt,]}>{item.description}</Text>
-                        </View> : null}
-                        <View style={styles.centers}>
-                            <Text style={styles.price_txt}>月售{item.sellCount}分</Text>
-                            <Text style={styles.price_txt}>好评率{item.rating}%</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Price price={item.price} oldPrice={item.oldPrice}/>
-                            <View style={styles.cart_control}>
-                                <AntDesign
-                                    name={'minuscircleo'}
-                                    size={24}
-                                    color="#00a0dc"
-                                    style={styles.button}
-                                />
-                                <Text style={[styles.price_txt, styles.num]}>{2}</Text>
-                                <AntDesign
-                                    name={'pluscircle'}
-                                    size={24}
-                                    color="#00a0dc"
-                                    style={styles.button}
-                                    onPress={() => this.addCount()}
-                                />
+        const {item, index} = info;
+        return (
+            <TouchableOpacity onPress={()=> NavigationUtil.goPage({item,index}, 'DetailPage')}>
+                <View style={[styles.item, GlobalStyles.borderBottomSolid_one]}>
+                    {/*上*/}
+                    <View style={{flexDirection: 'row'}}>
+                        <Image
+                            style={styles.img}
+                            source={{uri: item.image}}
+                        />
+                        <View style={{flex: 1}}>
+                            <View>
+                                <Text style={styles.name}>{item.name}</Text>
+                            </View>
+                            {item.description ? <View style={{marginBottom: 8}}>
+                                <Text style={[styles.price_txt,]}>{item.description}</Text>
+                            </View> : null}
+                            <View style={styles.centers}>
+                                <Text style={styles.price_txt}>月售{item.sellCount}分</Text>
+                                <Text style={styles.price_txt}>好评率{item.rating}%</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Price price={item.price} oldPrice={item.oldPrice}/>
+                                <View style={styles.cart_control}>
+                                    <AntDesign
+                                        name={'minuscircleo'}
+                                        size={24}
+                                        color="#00a0dc"
+                                        style={styles.button}
+                                        onPress={()=>this.decreaseOutCart()}
+                                    />
+                                    <Text style={[styles.price_txt, styles.num]}>{2}</Text>
+                                    <AntDesign
+                                        name={'pluscircle'}
+                                        size={24}
+                                        color="#00a0dc"
+                                        style={styles.button}
+                                        onPress={() => this.addToCart(item)}
+                                    />
+                                </View>
                             </View>
                         </View>
                     </View>
-                </View>
-                {/*下*/}
-                <View>
+                    {/*下*/}
+                    <View>
 
+                    </View>
                 </View>
-            </View>
-
+            </TouchableOpacity>
         )
     };
 }
