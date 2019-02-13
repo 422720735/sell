@@ -9,8 +9,11 @@ import SafeAreaViewPlus from '../../js/SafeAreaViewPlus'
 import ShoppingCart from "../TabPage/GoodsPage/ShoppingCart/ShoppingCart";
 import Price from "../../common/Base/Price";
 import Splic from "../../common/Base/Splic";
-
+import RatingSelect from "../../common/RatingSelect";
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import {formatDate} from '../../common/util/DateUtil'
 type Props = {};
+const isShow = false;
 export default class DetailPage extends Component<Props> {
     constructor(props) {
         super(props);
@@ -49,6 +52,8 @@ export default class DetailPage extends Component<Props> {
         }
     }
 
+
+
     /*头部*/
     ImageHeader() {
         const {food} = this.state;
@@ -84,15 +89,75 @@ export default class DetailPage extends Component<Props> {
         </View>
     }
 
+    /*商品评价*/
+    goodEvaluation() {
+        const {food} = this.props;
+        return <View style={{paddingTop: 18}}>
+            <Text style={{fontSize: 14, marginLeft: 18, color: '#07111b'}}>商品评价</Text>
+            <View style={styles.ratingType}>
+                {/*3个按钮*/}
+                <View style={{marginBottom: 18}}><RatingSelect/></View>
+                {/*评论*/}
+                <View style={[{flexDirection: 'row'}, styles.switch]}>
+                    <AntDesign
+                        name={'checkcircle'}
+                        size={24}
+                        style={
+                            [isShow ? styles.part : styles.all, {marginRight: 7}]
+                        }
+                    />
+                    <Text style={{color: '#93999f', fontSize: 12, lineHeight: 24,}}>{isShow ? '只看有内容部分' : '查看全部'}</Text>
+                </View>
+            </View>
+        </View>
+    }
+
+    formatDateTime(tiem){
+        let date = new Date(tiem);
+        return formatDate(date,'yyyy-MM-dd hh:mm')
+    }
+    /*评价*/
+    ratingWrapper() {
+        const {food} = this.state;
+        return <View>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6}}>
+                <Text style={{color: '#93999f', lineHeight: 12, fontSize: 10}}>{this.formatDateTime(food.ratings[1].rateTime)}</Text>
+                <View>
+                    <Text>3CCC33</Text>
+                </View>
+            </View>
+        </View>
+    }
 
     render() {
+        const {food} = this.state;
+        const foodInfo = <View style={styles.content}>
+            <Text style={{fontSize: 14, marginBottom: 6, color: '#07111b'}}>商品信息</Text>
+            <Text style={{color: '#4d555d', paddingLeft: 8, paddingRight: 8, lineHeight: 24}}>{food.info}</Text>
+        </View>;
         // SafeAreaViewPlus 处理全面屏的兼容
         // ScrollView超出就定位
         return <SafeAreaViewPlus>
             <ScrollView>
                 {this.ImageHeader()}
                 {this.content()}
+                {/*修饰线*/}
+                <Splic/>
+                {/*商品评价*/}
+                {food.info || food.info !== '' ? foodInfo : null}
+                {/*修饰线*/}
+                <Splic/>
+                {/*商品评价*/}
+                {this.goodEvaluation()}
+                <View style={{paddingLeft: 18, paddingRight: 18}}>
+                    {food.ratings && food.ratings.length ? this.ratingWrapper() : null}
+                    {/*暂无评论*/}
+                    {food.ratings && !food.ratings.length ? <View>
+                        <Text style={{fontSize: 12, color: '#93999f', paddingTop: 16, paddingBottom: 16}}>暂无评论</Text>
+                    </View> : null}
+                </View>
             </ScrollView>
+
             {/*购物车组件是公共的*/}
             <ShoppingCart/>
         </SafeAreaViewPlus>
@@ -133,7 +198,27 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderBottomWidth: 1,
         backgroundColor: 'red'
+    },
+
+    ratingType: {
+        paddingLeft: 18,
+        paddingRight: 18,
+        marginTop: 18,
+        marginBottom: 18,
+    },
+    part: {
+        color: '#93999f',
+    },
+    all: {
+        color: '#00c850'
+    },
+    switch: {
+        paddingTop: 12,
+        paddingBottom: 12,
+        paddingLeft: 18,
+        paddingRight: 18,
+        borderBottomWidth: 1,
+        borderStyle: 'solid',
+        borderColor: 'rgba(7,17,27,0.1)',
     }
-
-
 });

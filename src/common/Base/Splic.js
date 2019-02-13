@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {View,Text, StyleSheet, Dimensions} from 'react-native';
 
 export default class Splic extends Component {
     render() {
         return (
-            <View styles={styles.split}/>
+            <View>
+                <Text style={styles.split}/>
+            </View>
         );
     }
 }
@@ -18,6 +20,6 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        backgroundColor: 'red'
+        backgroundColor: '#f3f5f7',
     }
 });
