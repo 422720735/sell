@@ -11,7 +11,9 @@ import Price from "../../common/Base/Price";
 import Splic from "../../common/Base/Splic";
 import RatingSelect from "../../common/RatingSelect";
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import Entypo from 'react-native-vector-icons/Entypo'
 import {formatDate} from '../../common/util/DateUtil'
+
 type Props = {};
 const isShow = false;
 export default class DetailPage extends Component<Props> {
@@ -51,7 +53,6 @@ export default class DetailPage extends Component<Props> {
             NavigationUtil.goBack(this.props.navigation);
         }
     }
-
 
 
     /*头部*/
@@ -112,21 +113,46 @@ export default class DetailPage extends Component<Props> {
         </View>
     }
 
-    formatDateTime(tiem){
+    formatDateTime(tiem) {
         let date = new Date(tiem);
-        return formatDate(date,'yyyy-MM-dd hh:mm')
+        return formatDate(date, 'yyyy-MM-dd hh:mm')
     }
+
     /*评价*/
     ratingWrapper() {
         const {food} = this.state;
-        return <View>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6}}>
-                <Text style={{color: '#93999f', lineHeight: 12, fontSize: 10}}>{this.formatDateTime(food.ratings[1].rateTime)}</Text>
-                <View>
-                    <Text>3CCC33</Text>
+        let views = [];
+        for (let i = 0, l = food.ratings.length; i < l; i++) {
+            views.push(
+                <View style={[{paddingTop:16,paddingBottom:16},styles.borderBottomSolid]}>
+                    <View key={i} style={{
+                        flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6,
+                    }}>
+                        <Text style={{
+                            color: '#93999f',
+                            lineHeight: 12,
+                            fontSize: 10
+                        }}>{this.formatDateTime(food.ratings[i].rateTime)}</Text>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text style={{marginRight: 6, fontSize: 10, color: '#93999f'}}>{food.ratings[i].username}</Text>
+                            <Image
+                                style={{width: 12, height: 12, borderRadius: 6}}
+                                source={{uri: 'http://static.galileo.xiaojukeji.com/static/tms/default_header.png'}}
+                            />
+                        </View>
+
+                    </View>
+                    <Entypo
+                        name={'thumbs-up'}
+                        size={12}
+                        style={{color:'#00a0dc'}}
+                    />
                 </View>
-            </View>
-        </View>
+
+
+            )
+        }
+        return views;
     }
 
     render() {
@@ -189,7 +215,11 @@ const styles = StyleSheet.create({
         paddingBottom: 18
     },
 
-
+    borderBottomSolid: {
+        borderBottomWidth:0.25,
+        borderColor:'rgba(7,17,27,0.1)',
+        borderStyle:'solid',
+    },
     split: {
         width: width,
         height: 16,
