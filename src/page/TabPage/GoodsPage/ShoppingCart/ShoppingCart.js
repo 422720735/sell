@@ -8,11 +8,13 @@ const isok = false;
 
 
 import {connect} from 'react-redux';
+
 class ShoppingCart extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        let totalPrice = 0;
+
     }
+
     render() {
         return <View style={{width: width, height: 56, paddingTop: 9}}>
             <View style={styles.content}>
@@ -26,18 +28,18 @@ class ShoppingCart extends Component {
                                 size={24}
                                 style={{lineHeight: 44, color: '#80858a', textAlign: 'center'}}
                             />
-                            <View style={styles.num}>
-                                <Text style={{
-                                    fontSize: 9,
-                                    fontWeight: '700',
-                                    color: '#fff',
-                                    textAlign: 'center',
-                                    lineHeight: 16,
-                                }}>{console.log(this.props.count)}</Text>
-                            </View>
+                            {this.props.shopping.totalAllNum > 0 ?
+                                <View style={styles.num}>
+                                    <Text style={{
+                                        fontSize: 9,
+                                        fontWeight: '700',
+                                        color: '#fff',
+                                        textAlign: 'center',
+                                        lineHeight: 16,
+                                    }}>{this.props.shopping.totalAllNum}</Text>
+                                </View> : null}
                         </View>
                     </View>
-
                     {/*价格*/}
                     <View style={styles.price}>
                         <Text style={{fontSize: 16, fontWeight: '700', lineHeight: 20, color: '#fff'}}>¥{'17'}</Text>
@@ -55,8 +57,8 @@ class ShoppingCart extends Component {
                 {/*右边*/}
                 <View style={styles.right_right}>
                     <View style={[styles.pay, isok ? styles.not_enough : styles.enough]}>
-                        <Text style={[isok?
-                            {color:'rgba(255,255,255,0.4)'}: {color:'#fff'}]}>还差3元</Text>
+                        <Text style={[isok ?
+                            {color: 'rgba(255,255,255,0.4)'} : {color: '#fff'}]}>还差3元</Text>
                     </View>
                 </View>
             </View>
@@ -65,10 +67,10 @@ class ShoppingCart extends Component {
 }
 
 const mapStateToProps = state => ({
-    count: state.shopping
+    shopping: state.shopping
 });
-export default connect(mapStateToProps)(ShoppingCart)
 
+export default connect(mapStateToProps)(ShoppingCart)
 
 
 const {width, height} = Dimensions.get('window');
@@ -133,8 +135,8 @@ const styles = StyleSheet.create({
     },
     pay: {
         height: 49,
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         fontSize: 12,
         fontWeight: '700',
     },

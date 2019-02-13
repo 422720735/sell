@@ -18,23 +18,54 @@ import actions from '../../../../../action/index';
 
 import {connect} from 'react-redux'
 import NavigationUtil from "../../../../../js/navigator/NavigationUtil";
+import Toast from 'react-native-easy-toast'
 
 class Contet extends Component {
 
     constructor(props) {
         super(props);
+        this.renderItem = this.renderItem.bind(this)
+        this.renderSectionHeader = this.renderSectionHeader.bind(this)
+        this.state = {
+            status: [],
+            totalAllNum: 0,
+            totalPrice: 0
+        };
     }
+
+    componentDidMount() {
+        const {foods} = this.props;
+        let Arr = [];
+        foods.forEach((items, index) => {
+            let newObj = {
+                ...items,
+                index: index,
+            };
+            let tempItems = [];
+            newObj.foods.forEach(item => {
+                let arr = item;
+                if (!item.count) {
+                    item.fatherIndex = index;
+                    arr.count = 0;
+                }
+                tempItems.push(arr);
+            });
+            Arr.push(newObj)
+        });
+        this.state.status = Arr; // 组装的新数据
+    }
+
 
     render() {
         const {foods} = this.props;
         let tempArr = foods.map((item, index) => {
             let tempData = {};
+            item.index = index;
             tempData.key = item.name;
             tempData.index = index;
             tempData.data = item.foods;
             return tempData
         });
-
         return (
             <View style={styles.container}>
                 <SectionList
@@ -43,6 +74,7 @@ class Contet extends Component {
                     sections={tempArr}
                     onViewableItemsChanged={(info) => this.itemChange(info)}  //滑动时调用
                 />
+                <Toast ref={toast => this.toast = toast} position={'center'}/>
             </View>
         );
     }
@@ -56,7 +88,6 @@ class Contet extends Component {
         )
     };
     itemChange = (info) => {
-
         let title = info.changed[0].item.index;
         var reg = new RegExp("^[0-9]*$");
         if (reg.test(title) && title > 0) {
@@ -64,16 +95,72 @@ class Contet extends Component {
         }
     };
 
-    /*加购物*/
-    addToCart(item) {
-        console.log(item)
+    maxTotalNum() {
+        let total = 0, allMoney = 0;
+        const status = this.state.status;
+        status.forEach(items => {
+            items.foods.forEach(item => {
+                if (item.count > 0) {
+                    total += item.count;
+                    allMoney += (item.count * item.price)
+                }
+            })
+        });
+        return {
+            total,
+            allMoney
+        }
     }
+
+    /*加购物*/
+    addToCart(item, childIndex) {
+        const {onShoppingCountChange} = this.props;
+        const status = this.state.status;
+        if (this.maxTotalNum().total < 15) {
+            status[item.fatherIndex].foods[childIndex].count++;
+            this.maxTotalNum();
+            this.setState({
+                    status: status,
+                    totalAllNum: this.maxTotalNum().total,
+                    totalPrice: this.maxTotalNum().allMoney,
+                },
+                () => {
+                    //这里打印的是最新的state值
+                    onShoppingCountChange(this.state);
+                });
+            // 这个数据传输到redux中
+
+            /*
+            *
+            * */
+        } else {
+            this.toast.show('最多只能购买15份');
+        }
+    }
+
     /*减购物*/
-    decreaseOutCart(){}
+    decreaseOutCart(item, childIndex) {
+        const {onShoppingCountChange} = this.props;
+        const status = this.state.status;
+        /*
+        * 当前商品数量不能小于0
+        * */
+        if (status[item.fatherIndex].foods[childIndex].count > 0) {
+            status[item.fatherIndex].foods[childIndex].count--;
+            this.setState({
+                status: status,
+                totalAllNum: this.maxTotalNum().total,
+                totalPrice: this.maxTotalNum().allMoney,
+            },()=>{
+                onShoppingCountChange(this.state);
+            })
+        }
+    }
+
     renderItem = (info) => {
         const {item, index} = info;
         return (
-            <TouchableOpacity onPress={()=> NavigationUtil.goPage({item,index}, 'DetailPage')}>
+            <TouchableOpacity onPress={() => NavigationUtil.goPage({item, index}, 'DetailPage')}>
                 <View style={[styles.item, GlobalStyles.borderBottomSolid_one]}>
                     {/*上*/}
                     <View style={{flexDirection: 'row'}}>
@@ -100,15 +187,15 @@ class Contet extends Component {
                                         size={24}
                                         color="#00a0dc"
                                         style={styles.button}
-                                        onPress={()=>this.decreaseOutCart()}
+                                        onPress={() => this.decreaseOutCart(item, index)}
                                     />
-                                    <Text style={[styles.price_txt, styles.num]}>{2}</Text>
+                                    <Text style={[styles.price_txt, styles.num]}>{item.count}</Text>
                                     <AntDesign
                                         name={'pluscircle'}
                                         size={24}
                                         color="#00a0dc"
                                         style={styles.button}
-                                        onPress={() => this.addToCart(item)}
+                                        onPress={() => this.addToCart(item, index)}
                                     />
                                 </View>
                             </View>
@@ -124,12 +211,10 @@ class Contet extends Component {
     };
 }
 
-const mapStateToProps = state => ({
-    count: state.shopping.count
-});
+const mapStateToProps = state => ({});
 
 const mapDispathchToProps = dispatch => ({
-    onShoppingCountChange: count => dispatch(actions.onShoppingCountChange(count))
+    onShoppingCountChange: (total) => dispatch(actions.onShoppingCountChange(total))
 });
 
 export default connect(mapStateToProps, mapDispathchToProps)(Contet)

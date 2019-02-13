@@ -1,16 +1,16 @@
 import Types from '../../action/type';
 
 const defaultState = {
-    count: 0
+    totalAllNum: 0
 };
 export default function onAction(state = defaultState, action) {
-    console.log(action);
     switch (action.type) {
-        case Types.COUNTGOODS:
+        case Types.SHOPPINGTOTAL:
             return {
                 ...state,
-                index: action.index,
-                count: action.count
+                status: action.shopping.status,
+                totalAllNum: action.shopping.totalAllNum,
+                totalPrice: action.shopping.totalPrice,
             };
         default:
             return state;
