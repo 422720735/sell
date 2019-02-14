@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, View, Dimensions, Image} from 'react-native';
+import {ScrollView, StyleSheet, Text, View, TouchableOpacity, Image, Dimensions} from 'react-native';
 
 import BackPressComponent from "../../common/BackPressComponent";
 import NavigationUtil from "../../js/navigator/NavigationUtil";
@@ -13,6 +13,7 @@ import RatingSelect from "../../common/RatingSelect";
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 import {formatDate} from '../../common/util/DateUtil'
+import ShoppingButton from "../../common/ShoppingButton/ShoppingButton";
 
 type Props = {};
 const isShow = false;
@@ -85,10 +86,11 @@ export default class DetailPage extends Component<Props> {
             </View>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Price price={food.price} oldPrice={food.oldPrice}/>
-                <View><Text>加入购物车</Text></View>
+                <ShoppingButton data={this.params}/>
             </View>
         </View>
     }
+
 
     /*商品评价*/
     goodEvaluation() {
@@ -124,7 +126,7 @@ export default class DetailPage extends Component<Props> {
         let views = [];
         for (let i = 0, l = food.ratings.length; i < l; i++) {
             views.push(
-                <View style={[{paddingTop:16,paddingBottom:16},styles.borderBottomSolid]}>
+                <View style={[{paddingTop: 16, paddingBottom: 16}, styles.borderBottomSolid]}>
                     <View key={i} style={{
                         flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6,
                     }}>
@@ -134,7 +136,11 @@ export default class DetailPage extends Component<Props> {
                             fontSize: 10
                         }}>{this.formatDateTime(food.ratings[i].rateTime)}</Text>
                         <View style={{flexDirection: 'row'}}>
-                            <Text style={{marginRight: 6, fontSize: 10, color: '#93999f'}}>{food.ratings[i].username}</Text>
+                            <Text style={{
+                                marginRight: 6,
+                                fontSize: 10,
+                                color: '#93999f'
+                            }}>{food.ratings[i].username}</Text>
                             <Image
                                 style={{width: 12, height: 12, borderRadius: 6}}
                                 source={{uri: 'http://static.galileo.xiaojukeji.com/static/tms/default_header.png'}}
@@ -145,11 +151,9 @@ export default class DetailPage extends Component<Props> {
                     <Entypo
                         name={'thumbs-up'}
                         size={12}
-                        style={{color:'#00a0dc'}}
+                        style={{color: '#00a0dc'}}
                     />
                 </View>
-
-
             )
         }
         return views;
@@ -216,9 +220,9 @@ const styles = StyleSheet.create({
     },
 
     borderBottomSolid: {
-        borderBottomWidth:0.25,
-        borderColor:'rgba(7,17,27,0.1)',
-        borderStyle:'solid',
+        borderBottomWidth: 0.25,
+        borderColor: 'rgba(7,17,27,0.1)',
+        borderStyle: 'solid',
     },
     split: {
         width: width,

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions,TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 /*购物车*/
 
@@ -24,18 +24,21 @@ class ShoppingCart extends Component {
     }
 
     render() {
-        const isok = this.props.shopping.totalAllNum && this.props.shopping.totalAllNum > 0 ? true : false;
         return <View style={{width: width, height: 56, paddingTop: 9}}>
             <View style={styles.content}>
                 {/*左边*/}
                 <View style={styles.content_left}>
                     {/*logo*/}
-                    <View style={[styles.log_wrapper, ]}>
-                        <View style={styles.logo}>
+                    <View
+                        style={[styles.log_wrapper, this.props.shopping.totalAllNum > 0 ? styles.NewbackgroundColor : styles.NobackgroundColor]}>
+                        <View style={[styles.logo,
+                            this.props.shopping.totalAllNum > 0 ? styles.Newlogo : styles.Nologo]}>
                             <AntDesign
                                 name={'shoppingcart'}
                                 size={24}
-                                style={{lineHeight: 44, color: '#80858a', textAlign: 'center'}}
+                                style={[{lineHeight: 44, textAlign: 'center'},
+                                    this.props.shopping.totalAllNum > 0 ? styles.noColor : styles.newColor
+                                ]}
                             />
                             {this.props.shopping.totalAllNum > 0 ?
                                 <View style={styles.num}>
@@ -51,7 +54,12 @@ class ShoppingCart extends Component {
                     </View>
                     {/*价格*/}
                     <View style={styles.price}>
-                        <Text style={{fontSize: 16, fontWeight: '700', lineHeight: 20, color: '#fff'}}>¥{this.props.shopping.totalPrice>0 ?this.props.shopping.totalPrice: 0}</Text>
+                        <Text style={{
+                            fontSize: 16,
+                            fontWeight: '700',
+                            lineHeight: 20,
+                            color: '#fff'
+                        }}>¥{this.props.shopping.totalPrice > 0 ? this.props.shopping.totalPrice : 0}</Text>
                     </View>
                     {/*配送说明*/}
                     <View style={styles.desc}>
@@ -64,13 +72,16 @@ class ShoppingCart extends Component {
                     </View>
                 </View>
                 {/*右边*/}
-                <View style={styles.right_right}>
-                    <View
-                        style={[styles.pay, this.props.shopping.totalPrice >= 20 ? styles.enough : styles.not_enough]}>
-                        <Text style={[this.props.shopping.totalPrice >= 20 ?
-                            {color: '#f3f5f7'} : {color: '#ffffff'}]}>{this.totalMoney()}</Text>
+                <TouchableOpacity style={{flexDirection:'row'}}  onPress={()=>alert('这里是去跳转结算逻辑')}>
+                    <View style={styles.right_right}>
+                        <View
+                            style={[styles.pay, this.props.shopping.totalPrice >= 20 ? styles.enough : styles.not_enough]}>
+                            <Text style={[this.props.shopping.totalPrice >= 20 ?
+                                {color: '#f3f5f7'} : {color: '#ffffff'}]}>{this.totalMoney()}</Text>
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
+
             </View>
         </View>;
     }
@@ -83,9 +94,15 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(ShoppingCart)
 
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+    noColor: {
+        color: '#f8f8f8'
+    },
+    newColor: {
+        color: '#80858a',
+    },
     content: {
         backgroundColor: '#141d27',
         flex: 1,
@@ -103,15 +120,22 @@ const styles = StyleSheet.create({
         width: 56,
         height: 56,
         borderRadius: 56,
-        backgroundColor: '#141d27',
         paddingLeft: 6,
         paddingRight: 6,
         paddingBottom: 6,
         paddingTop: 6,
     },
+    NobackgroundColor: {backgroundColor: '#141d27'},
+    NewbackgroundColor: {backgroundColor: '#00a0dc',},
+    Nologo: {
+        backgroundColor: '#2b343c',
+    },
+    Newlogo: {
+        backgroundColor: '#00a0dc',
+        color: '#f8f8f8'
+    },
     logo: {
         borderRadius: 56,
-        backgroundColor: '#2b343c',
         textAlign: 'center',
     },
     num: {

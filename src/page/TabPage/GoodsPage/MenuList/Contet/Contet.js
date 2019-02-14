@@ -151,7 +151,7 @@ class Contet extends Component {
                 status: status,
                 totalAllNum: this.maxTotalNum().total,
                 totalPrice: this.maxTotalNum().allMoney,
-            },()=>{
+            }, () => {
                 onShoppingCountChange(this.state);
             })
         }
