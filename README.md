@@ -9,24 +9,17 @@
 ![image](https://github.com/422720735/sell/blob/master/img-folder/iponex_index.png)
 ![image](https://github.com/422720735/sell/blob/master/img-folder/iponex_detail.png)
 
-` ``
+` `` javascript
 // 生成SafeAreaView   children是别的组件， 我们的组件嵌套它里面
-` ``
     genSafeAreaViewPlus() {
     ` ``
         const {children, topColor, bottomColor, topInset, bottomInset} = this.props;
         ` ``
         return <View style={[styles.container, this.props.style]}>
-        ` ``
-            {/*顶部的安全区域*/}
-            ` ``
+        ` `` 
             {this.getTopArea(topColor, topInset)}
             ` ``
-            {/*我们的组件部分*/}
-            ` ``
             {children}
-            ` ``
-            {/*底部的安全区域*/}
             ` ``
             {this.getBottomArea(bottomColor, bottomInset)}
             ` ``
@@ -35,8 +28,6 @@
     }
     ` ``
 ` ``
-    // 获取系统的SafeAreaView
-    ` ``
     genSafeAreaView() {
     ` ``
         return <SafeAreaView style={[styles.container, this.props.style]} {...this.props}>
@@ -47,19 +38,13 @@
         ` ``
     }
     ` ``
-    // 顶部的安全区域
-    ` ``
     getTopArea(topColor, topInset) {
-    ` ``
-               //  判断是不是全面屏 并且 是不是要显示全面屏
-               ` ``
+` ``
         return !DeviceInfo.isIPhoneX_deprecated || !topInset ? null
-        ` ``
+` ``
             : <View style={[styles.topArea, {backgroundColor: topColor}]}/>;
             ` ``
     }
-    ` ``
-    // 底部的安全区域
     ` ``
     getBottomArea(bottomColor, bottomInset) {
     ` ``
@@ -72,8 +57,6 @@
     render() {
     ` ``
         const {enablePlus} = this.props;
-        ` ``
-        // 判断我们用自己封装的还是Rn自带的。
         ` ``
         return enablePlus ? this.genSafeAreaViewPlus() : this.genSafeAreaView();
         ` ``
