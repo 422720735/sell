@@ -4,24 +4,33 @@ import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 /*购物车*/
 
-const isok = false;
-
 
 import {connect} from 'react-redux';
 
+const upSend = 20; // 起送价
 class ShoppingCart extends Component {
     constructor(props) {
         super(props);
+    }
 
+    totalMoney() {
+        if (!this.props.shopping.totalPrice || this.props.shopping.totalPrice <= 0) {
+            return '20元起送'
+        } else if (this.props.shopping.totalPrice > 0 && this.props.shopping.totalPrice < 20) {
+            return `还差${upSend - this.props.shopping.totalPrice}元起送`
+        } else {
+            return '去结算'
+        }
     }
 
     render() {
+        const isok = this.props.shopping.totalAllNum && this.props.shopping.totalAllNum > 0 ? true : false;
         return <View style={{width: width, height: 56, paddingTop: 9}}>
             <View style={styles.content}>
                 {/*左边*/}
                 <View style={styles.content_left}>
                     {/*logo*/}
-                    <View style={styles.log_wrapper}>
+                    <View style={[styles.log_wrapper, ]}>
                         <View style={styles.logo}>
                             <AntDesign
                                 name={'shoppingcart'}
@@ -42,7 +51,7 @@ class ShoppingCart extends Component {
                     </View>
                     {/*价格*/}
                     <View style={styles.price}>
-                        <Text style={{fontSize: 16, fontWeight: '700', lineHeight: 20, color: '#fff'}}>¥{'17'}</Text>
+                        <Text style={{fontSize: 16, fontWeight: '700', lineHeight: 20, color: '#fff'}}>¥{this.props.shopping.totalPrice>0 ?this.props.shopping.totalPrice: 0}</Text>
                     </View>
                     {/*配送说明*/}
                     <View style={styles.desc}>
@@ -56,9 +65,10 @@ class ShoppingCart extends Component {
                 </View>
                 {/*右边*/}
                 <View style={styles.right_right}>
-                    <View style={[styles.pay, isok ? styles.not_enough : styles.enough]}>
-                        <Text style={[isok ?
-                            {color: 'rgba(255,255,255,0.4)'} : {color: '#fff'}]}>还差3元</Text>
+                    <View
+                        style={[styles.pay, this.props.shopping.totalPrice >= 20 ? styles.enough : styles.not_enough]}>
+                        <Text style={[this.props.shopping.totalPrice >= 20 ?
+                            {color: '#f3f5f7'} : {color: '#ffffff'}]}>{this.totalMoney()}</Text>
                     </View>
                 </View>
             </View>
