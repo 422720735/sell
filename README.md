@@ -6,7 +6,7 @@
 
 - 这个购物车的添加商品删除商品等都交给了都交给redux管理。这样易于维护。
 
-#### 在官方自带的SafeAreaView上实现我们自己的兼容iPoneX
+#### 在官方自带的SafeAreaView上实现我们自定义iponeX上下安全区域。
 ```javascript 1.8
 // 生成SafeAreaView   children是别的组件， 我们的组件嵌套它里面
     genSafeAreaViewPlus() {
