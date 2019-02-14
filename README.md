@@ -3,10 +3,10 @@
 ### RN随着不断断更新迭代，目前0.58开发起来，在2018年里我们公司用RN重构了个酒店管理系统，开发一套代码就能同时运行在androis,ios上，
 
 ##这是我业余时间完成一个购物车
-![Image text](https://raw.githubusercontent.com/422720735/sell/master/img-folder/ipone6_index.png?token=AfXgR85ZinTqzPNP1wt0opXvKcAVOR9gks5cZUEwwA%3D%3D)
-![Image text](https://raw.githubusercontent.com/422720735/sell/master/img-folder/ipone6_detail.png?token=AfXgRyoWHeRUCPeIbd9Rr936zY1dhpuyks5cZUFwwA%3D%3D)
-![Image text](https://raw.githubusercontent.com/422720735/sell/master/img-folder/iponex_index.png?token=AfXgR2eEd9lMW-679v6CRP4Udraeys5aks5cZUGbwA%3D%3D)
-![Image text](https://raw.githubusercontent.com/422720735/sell/master/img-folder/iponex_detail.png?token=AfXgRytYEQweMQMWT53_k-jYYhK-UOlzks5cZUG4wA%3D%3D)
+![image](sell/img-folder/ipone6_index.png)
+![image](sell/img-folder/ipone6_detail.png)
+![image](sell/img-folder/iponex_index.png)
+![image](sell/img-folder/iponex_detail.png)
 
 ` ``
 // 生成SafeAreaView   children是别的组件， 我们的组件嵌套它里面
