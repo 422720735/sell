@@ -2,8 +2,7 @@
 
 ### RN随着不断断更新迭代，目前0.58开发起来，在2018年里我们公司用RN重构了个酒店管理系统，开发一套代码就能同时运行在androis,ios上，
 ## 这是我业余时间完成一个购物车
-#### 预览效果
-[Mozilla](https://pan.baidu.com/s/1NQas1bfC77exEZ8dsA4eTw)
+[预览效果](https://pan.baidu.com/s/1NQas1bfC77exEZ8dsA4eTw)
 - 这个购物车的添加商品删除商品等都交给了都交给redux管理。这样易于维护。
 
 #### 在官方自带的SafeAreaView上实现我们自定义iponeX上下安全区域。
