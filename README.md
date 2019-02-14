@@ -4,9 +4,9 @@
 
 ##这是我业余时间完成一个购物车
 ![image](https://github.com/422720735/sell/blob/master/img-folder/ipone6_detail.png)
-![image](sell/img-folder/ipone6_detail.png)
-![image](sell/img-folder/iponex_index.png)
-![image](sell/img-folder/iponex_detail.png)
+![image](https://github.com/422720735/sell/blob/master/img-folder/ipone6_detail.png)
+![image](https://github.com/422720735/sell/blob/master/img-folder/iponex_index.png)
+![image](https://github.com/422720735/sell/blob/master/img-folder/iponex_detail.png)
 
 ` ``
 // 生成SafeAreaView   children是别的组件， 我们的组件嵌套它里面
