@@ -10,57 +10,7 @@
 ![image](https://github.com/422720735/sell/blob/master/img-folder/iponex_detail.png)
 
 ` `` javascript
-// 生成SafeAreaView   children是别的组件， 我们的组件嵌套它里面
-    genSafeAreaViewPlus() {
-    ` ``
-        const {children, topColor, bottomColor, topInset, bottomInset} = this.props;
-        ` ``
-        return <View style={[styles.container, this.props.style]}>
-        ` `` 
-            {this.getTopArea(topColor, topInset)}
-            ` ``
-            {children}
-            ` ``
-            {this.getBottomArea(bottomColor, bottomInset)}
-            ` ``
-        </View>;
-        ` ``
-    }
-    ` ``
+    genSafeAreaViewPlus() {}
 ` ``
-    genSafeAreaView() {
-    ` ``
-        return <SafeAreaView style={[styles.container, this.props.style]} {...this.props}>
-        ` ``
-            {this.props.children}
-            ` ``
-        </SafeAreaView>
-        ` ``
-    }
-    ` ``
-    getTopArea(topColor, topInset) {
-` ``
-        return !DeviceInfo.isIPhoneX_deprecated || !topInset ? null
-` ``
-            : <View style={[styles.topArea, {backgroundColor: topColor}]}/>;
-            ` ``
-    }
-    ` ``
-    getBottomArea(bottomColor, bottomInset) {
-    ` ``
-        return !DeviceInfo.isIPhoneX_deprecated || !bottomInset ? null
-        ` ``
-            : <View style={[styles.bottomArea, {backgroundColor: bottomColor}]}/>;
-            ` ``
-    }
-` ``
-    render() {
-    ` ``
-        const {enablePlus} = this.props;
-        ` ``
-        return enablePlus ? this.genSafeAreaViewPlus() : this.genSafeAreaView();
-        ` ``
-    }
-    ` ``
     
 #### 在官方自带的SafeAreaView上实现我们自己的兼容iPoneX
