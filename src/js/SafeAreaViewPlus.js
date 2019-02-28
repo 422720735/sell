@@ -15,6 +15,7 @@ export default class SafeAreaViewPlus extends Component {
 
     // 默认值
     static defultProps = {
+
         topColor: 'transparent',
         bottomColor: '#f8f8f8',
         enablePlus: true,

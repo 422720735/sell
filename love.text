@@ -5,7 +5,6 @@ npm install react-navigation
 二级页面像跳转一级路由平级到页面
 
 
-
 Image 组件， require 中的图片名称必须为一个静态的字符串信息。不能在 require 中进行拼接
 let classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
 let b = "../../common/images/" + classMap[2] + "_1.png";
